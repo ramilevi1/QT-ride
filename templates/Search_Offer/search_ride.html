@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Rides</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main_search_offer.css')}}">
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Seats</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ride in rides %}
+                <tr>
+                    <td>{{ ride.origin }}</td>
+                    <td>{{ ride.destination }}</td>
+                    <td>{{ ride.date }}</td>
+                    <td>{{ ride.time }}</td>
+                    <td>{{ ride.seats_available }}</td>
+                    <td>{{ ride.price or 'Free' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+
+        <!-- 
+        <h1>Search for Rides</h1>
+        <form id="search-form">
+            <label for="origin">Origin</label>
+            <input type="text" id="origin" name="origin" placeholder="Enter origin">
+
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter destination">
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date">
+
+            <button type="submit">Search</button>
+        </form>
+
+        <h2>Search Results</h2>
+        <div id="results">
+             Search results will be dynamically inserted here 
+             
+            
+        </div>-->
+    </div>
+
+    <div class="button-container">
+        <a href="{{url_for('index')}}">Index</a>
+        <a href="{{url_for('offer_ride')}}">Offer a Ride</a>
+    </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+
+            // Make a GET request to the /search endpoint
+            const response = await fetch(`/search?origin=${origin}&destination=${destination}&date=${date}`);
+            const results = await response.json();
+
+            // Display results dynamically
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p>No rides found.</p>';
+            } else {
+                results.forEach((ride) => {
+                    const rideCard = `
+                        <div class="result-card">
+                            <h3>Ride from ${ride.origin} to ${ride.destination}</h3>
+                            <p><strong>Date:</strong> ${ride.date}</p>
+                            <p><strong>Time:</strong> ${ride.time}</p>
+                            <p><strong>Seats Available:</strong> ${ride.seats_available}</p>
+                            <p><strong>Price:</strong> $${ride.price}</p>
+                        </div>
+                    `;
+                    resultsDiv.innerHTML += rideCard;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
