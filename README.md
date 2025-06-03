@@ -25,7 +25,7 @@ Carpooliong. features included:
 8. Ajax for serving JS files
 9. SQlite3
 10. Playwright basic e2e tests
-11. unig tests 
+11. unit tests 
 
 Next to do:
 1. containerize (p1)
