@@ -4,12 +4,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
 from datetime import datetime, timedelta
 import jwt  # <-- JWT support added
+import os
 
 from database import db
 from models import User
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/auth_service.db'
+# Use absolute path for SQLite database
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, 'auth_service.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'auth_service_secret_key'  # used by Flask internally
 JWT_SECRET = 'your_secret'  # <-- used for signing JWT

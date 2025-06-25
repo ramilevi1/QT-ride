@@ -90,3 +90,62 @@ N-tier microservices arcitecture
       ------------            --------------         ----------
       |   DB     |            |     DB     |         |    DB   |
       ------------            -------------          ----------
+
+# QT-ride Mac
+
+A microservices-based ride-sharing application adapted for macOS.
+
+## Services
+
+- **Auth Service** (Port 5001): Handles user authentication
+- **Search Service** (Port 5002): Manages ride searches
+- **Offer Service** (Port 5004): Handles ride offers
+- **User Profile Service**: Manages user profiles
+
+## Setup
+
+1. Create a Python virtual environment:
+```bash
+python3.11 -m venv venv
+source venv/bin/activate
+```
+
+2. Install dependencies for each service:
+```bash
+cd auth_service
+pip install Flask==3.0.2 Flask-SQLAlchemy==3.1.1 Flask-Migrate==4.0.7 PyJWT==2.8.0
+```
+
+3. Run the services:
+```bash
+# Auth Service
+cd auth_service
+python3 app.py
+
+# Search Service
+cd ../search_service
+python3 app.py
+
+# Offer Service
+cd ../offer_service
+python3 app.py
+```
+
+## API Endpoints
+
+### Auth Service (localhost:5001)
+- POST /signup - Create new user
+- POST /signin - User login
+- POST /signout - User logout
+
+### Search Service (localhost:5002)
+- GET /search - Search for rides
+
+### Offer Service (localhost:5004)
+- POST /offer - Create ride offer
+
+## Requirements
+- Python 3.11+
+- Flask
+- SQLAlchemy
+- PyJWT
