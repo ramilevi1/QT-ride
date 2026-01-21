@@ -1,5 +1,5 @@
 [![Python CI](https://github.com/ramilevi1/QT-ride/actions/workflows/python-app.yml/badge.svg)](https://github.com/ramilevi1/QT-ride/actions/workflows/python-app.yml)
-
+ 
 # QT-ride
 Carpooliong. features included:
 1. sign up and log-in/log-out (authentication)
