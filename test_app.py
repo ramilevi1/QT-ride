@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
 import unittest
-from app import app, search_route_handler
+from app import app
 
 
 class TestApp(unittest.TestCase):
